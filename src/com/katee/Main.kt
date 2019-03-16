@@ -1,5 +1,11 @@
 package com.katee
 
 fun main(args: Array<String>) {
-    println("hellow World")
+    if (args.isEmpty()) {
+        println("No Args!!!")
+    }else {
+        for (arg in args) {
+            println(arg)
+        }
+    }
 }
