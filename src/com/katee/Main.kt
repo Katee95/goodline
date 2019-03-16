@@ -5,5 +5,6 @@ fun main(args: Array<String>) {
         println("No Args!!!")
     }else {
         args.forEach { println(it) }
+
     }
 }
