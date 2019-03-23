@@ -3,41 +3,29 @@
 COUNT_ALL=0
 COUNT_SUC=0
 
-echo
-echo No args
-./RUN.sh
-RES=$?
-let COUNT_ALL++
-if [ $RES -eq 0 ]; then
-    echo Test passed
-    let "COUNT_SUC = $COUNT_SUC + 1"
-else
-    echo est failed. Expected 0 Actual $RES
-    fi
+function test {
+    MSG=$1; shift
+    EXPECTED=$1
+    shift
 
-echo
-echo 1 arg
-./RUN.sh foo
-RES=$?
-let COUNT_ALL++
-if [ $RES -eq 1 ]; then
-    echo Test passed
-    let "COUNT_SUC = $COUNT_SUC + 1"
-else
-    echo est failed. Expected 1 Actual $RES
-    fi
+    echo
+    echo $MSG
+    ./RUN.sh "$@"
+    RES=$?
+    let COUNT_ALL++
+    if [ $RES -eq $EXPECTED ]; then
+        echo Test passed
+        let "COUNT_SUC = $COUNT_SUC + 1"
+    else
+        echo est failed. Expected $EXPECTED Actual $RES
+        fi
+}
 
-echo
-echo 2 arg
-./RUN.sh foo bar
-RES=$?
-let COUNT_ALL++
-if [ $RES -eq 2 ]; then
-    echo Test passed
-    let "COUNT_SUC = $COUNT_SUC + 1"
-else
-    echo est failed. Expected 2 Actual $RES
-    fi
+test "No args" 0
+test "1 args" 1 foo
+test "2 args" 2 foo bar
+test "Many args" 100 foo bar baz "1 2 3"
+
 
 echo ***
 if [ $COUNT_ALL -eq $COUNT_SUC ]; then
