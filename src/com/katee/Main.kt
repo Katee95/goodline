@@ -3,17 +3,15 @@ package com.katee
 import kotlin.system.exitProcess
 
 fun main(args: Array<String>) {
-    val status = when {
-        args.isEmpty() -> {
-            println("No Args!!!")
-            0
+    val status = when (args.size) {
+        0 -> getStatus(0, {println("No Args!!!")})
+            1 -> getStatus(1, {})
+            2 -> getStatus(2, {})
+            else -> getStatus (100, {args.forEach { println(it) }})
         }
-        args.size ==1 -> 1
-        args.size ==2 -> 2
-        else -> {
-            args.forEach { println(it) }
-            100
-        }
-    }
     System.exit(status)
+}
+fun getStatus(status: Int, callback: () -> Unit): Int{
+    callback()
+    return status
 }
