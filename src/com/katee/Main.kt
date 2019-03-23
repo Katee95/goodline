@@ -1,16 +1,20 @@
 package com.katee
 
+import kotlin.system.exitProcess
+
 fun main(args: Array<String>) {
+    val status : Int
     when {
         args.isEmpty() -> {
             println("No Args!!!")
-            System.exit(  0)
+            status = 0
         }
-        args.size ==1 -> System.exit(1)
-        args.size ==2 -> System.exit(2)
+        args.size ==1 -> status = 1
+        args.size ==2 -> status = 2
         else -> {
             args.forEach { println(it) }
-            System.exit( 100)
+            status = 3
         }
     }
+    System.exit(status)
 }
